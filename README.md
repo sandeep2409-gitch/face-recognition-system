@@ -27,15 +27,15 @@ python -m venv venv
 source venv/bin/activate   # On macOS/Linux
 venv\Scripts\activate      # On Windows
 ```
-###3️⃣ installing the required dependencies
+### 3️⃣ installing the required dependencies
 ```bash
 pip install flask opencv-python face-recognition pandas openpyxl
 ```
-###4️⃣ running the app
+### 4️⃣ running the app
 ```bash
 python3 app.py
 ```
-###5️⃣ open your browser
+### 5️⃣ open your browser
 ```bash
 http://127.0.0.1:5000
 ```
