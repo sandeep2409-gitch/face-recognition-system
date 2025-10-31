@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Capture Attendance</title>
+    <style>
+        body {
+            font-family: Poppins, sans-serif;
+            background: linear-gradient(135deg, #141E30, #243B55);
+            color: white;
+            text-align: center;
+            padding: 40px;
+        }
+        h2 {
+            font-size: 26px;
+            margin-bottom: 20px;
+        }
+        .video-box {
+            display: inline-block;
+            border: 3px solid #00c6ff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(0, 198, 255, 0.4);
+        }
+        img {
+            width: 640px;
+            height: 480px;
+        }
+        .controls {
+            margin-top: 20px;
+        }
+        button {
+            background: #00c6ff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #0072ff;
+        }
+        .msg {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        a {
+            color: #00c6ff;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 25px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Capture Attendance</h2>
+
+    <div class="video-box">
+        <img src="{{ url_for('video_capture') }}" alt="Live Camera Feed">
+    </div>
+
+    <div class="controls">
+        <a href="{{ url_for('start_capture') }}"><button>Mark Attendance</button></a>
+        <a href="{{ url_for('admin_panel') }}"><button style="background:#555;">Back</button></a>
+    </div>
+
+    {% if error %}
+    <p class="msg" style="color: red;">{{ error }}</p>
+    {% elif success %}
+    <p class="msg" style="color: lightgreen;">{{ success }}</p>
+    {% endif %}
+</body>
+</html>

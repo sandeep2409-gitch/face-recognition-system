@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: Poppins, sans-serif;
+            background: radial-gradient(circle at top, #0f2027, #203a43, #2c5364);
+            color: white;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h2 {
+            padding: 25px 0;
+            letter-spacing: 2px;
+            font-size: 28px;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 30px;
+            justify-items: center;
+            padding: 40px;
+        }
+
+        .module {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            width: 160px;
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(0, 174, 255, 0.2);
+            border: 2px solid rgba(0, 174, 255, 0.3);
+        }
+
+        .module:hover {
+            transform: scale(1.08);
+            background: rgba(0, 174, 255, 0.15);
+            box-shadow: 0 0 20px rgba(0, 174, 255, 0.6);
+            border: 2px solid rgba(0, 174, 255, 0.8);
+        }
+
+        .module span {
+            display: block;
+            text-align: center;
+            font-weight: 500;
+            margin-top: 5px;
+        }
+
+        table {
+            width: 80%;
+            margin: 40px auto;
+            border-collapse: collapse;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        th {
+            background: rgba(0,174,255,0.2);
+        }
+
+        td form {
+            display: inline;
+        }
+
+        button {
+            background: #00c6ff;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0072ff;
+        }
+
+        footer {
+            margin-top: 40px;
+            opacity: 0.6;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Control Panel</h2>
+
+    <div class="dashboard">
+        <a href="{{ url_for('add_face') }}" class="module">
+            <div><span>Add Face</span></div>
+        </a>
+ <a href="{{ url_for('capture_page') }}" class="module">
+            <span>Capture Attendance</span>
+</a>
+
+        <a href="{{ url_for('view_attendance') }}" class="module">
+            <div><span>View Attendance</span></div>
+        </a>
+
+        <a href="{{ url_for('export_excel') }}" class="module">
+            <div><span>Export Excel</span></div>
+        </a>
+
+        <a href="{{ url_for('logout') }}" class="module">
+            <div><span>Logout</span></div>
+        </a>
+       
+    </div>
+
+    {% if records %}
+    <table>
+        <tr><th>Name</th><th>Time</th><th>Action</th></tr>
+        {% for record in records %}
+        <tr>
+            <td>{{ record['Name'] }}</td>
+            <td>{{ record['Time'] }}</td>
+            <td>
+                <form method="POST" action="{{ url_for('delete_record') }}">
+                    <input type="hidden" name="name" value="{{ record['Name'] }}">
+                    <button type="submit"> Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <p>No attendance records yet.</p>
+    {% endif %}
+
+</body>
+</html>

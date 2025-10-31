@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Face</title>
+    <style>
+        body {
+            font-family: Poppins, sans-serif;
+            background: radial-gradient(circle at top, #0f2027, #203a43, #2c5364);
+            color: white;
+            text-align: center;
+            padding: 40px;
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        img {
+            width: 60%;
+            max-width: 480px;
+            border-radius: 15px;
+            border: 3px solid #00c6ff;
+            box-shadow: 0 0 15px rgba(0, 198, 255, 0.5);
+            margin-bottom: 20px;
+        }
+        input {
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            width: 200px;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+        button {
+            background: #00c6ff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0072ff;
+        }
+        .msg {
+            margin-top: 15px;
+        }
+        .preview {
+            margin-top: 25px;
+        }
+        .preview img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 3px solid #00ffcc;
+            object-fit: cover;
+        }
+        a {
+            color: #00c6ff;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h2> Add New Face</h2>
+
+    <img src="{{ url_for('video_feed') }}" alt="Camera Preview">
+
+    <form method="POST">
+        <input type="text" name="name" placeholder="Enter name" required><br>
+        <button type="submit"> Capture Face</button>
+    </form>
+
+    {% if error %}
+    <p class="msg" style="color: red;">{{ error }}</p>
+    {% elif success %}
+    <div class="msg" style="color: lightgreen;">
+        <p>Face Added Successfully!</p>
+        <div class="preview">
+            <img src="{{ url_for('serve_known_face', filename=name + '.jpg') }}" alt="Saved Face Preview">
+            <p>{{ name }}</p>
+        </div>
+    </div>
+    {% endif %}
+
+    <a href="{{ url_for('admin_panel') }}"> Back to Admin Panel</a>
+</body>
+</html>
